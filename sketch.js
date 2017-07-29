@@ -1,14 +1,37 @@
-var pop = [0];
+
+var pops = new Array();
 
 function setup() {
     
     createCanvas(800,600);
-    for(var i = 0 ; i < 20 ; i++){
-        pop[i]={
-            x:400, 
-            y:600,
-            
-            moving:function(){
+    for(var i = 0 ; i < 5 ; i++){
+        pops[i] = new Bubble(random(400,600),600);
+    }
+ 
+}
+
+document.write("<h2 style='text-align:center'>click to have one ball in the mouseX and y<h2>")
+
+
+function mousePressed(){
+    pops.push(new Bubble(mouseX,mouseY))
+}
+
+
+function draw() {
+  background(50,50,50);
+  for (var i=0; i < pops.length; i++) {
+    pops[i].moveing();
+    pops[i].display();
+  }
+}
+    
+function Bubble(x,y){
+    
+    this.x = x;
+    this.y = y;
+    
+    this.moveing = function(){
                var x = random(-5,5);
                 if ( x + this.x > 600 || x + this.x < 200){
                  this.x -= x * 2;
@@ -25,9 +48,10 @@ function setup() {
                     this.y += y;
                 }
                 
-            },
+            }
             
-            display:function(){
+            this.display = function(){
+                
                 stroke(250)
                 noFill()
                 if(this.y > 400 && this.y <= 500){
@@ -57,25 +81,9 @@ function setup() {
                 
                 ellipse(this.x,this.y,10,10)
                 
-                    
-            },
+            }
+            
+            
     
-        }
-    }
-    print(pop[0])
-
 }
-
-function draw() {
     
-    background(0);
-    
-    for(var i = 0 ; i < 20 ; i++){
-        pop[i].moving();
-        pop[i].display(); 
-    }
-    
-  
-}
-
-
